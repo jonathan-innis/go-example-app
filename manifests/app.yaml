@@ -4,16 +4,16 @@ metadata:
   name: go-example-app
   namespace: default
   labels:
-    app: mux
+    app: go-example-app
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: mux
+      app: go-example-app
   template:
     metadata:
       labels:
-        app: mux
+        app: go-example-app
     spec:
       containers:
       - name: go-example-app
