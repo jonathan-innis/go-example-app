@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	filePath = "/mnt/secret-store"
+	filePath = "/mnt/secrets-store/DemoSecret"
 )
 
 func main() {

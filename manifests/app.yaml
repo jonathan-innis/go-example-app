@@ -18,6 +18,7 @@ spec:
       containers:
       - name: go-example-app
         image: joinnisacr.azurecr.io/go-example-app:latest
+        imagePullPolicy: Always
         volumeMounts:
         - name: secrets-store-inline
           mountPath: "/mnt/secrets-store"
