@@ -1,35 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: go-example-app
+  namespace: default
   labels:
-    app: nginx
+    app: mux
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: nginx
+      app: mux
   template:
     metadata:
       labels:
-        app: nginx
+        app: mux
     spec:
       containers:
-      - name: busybox
-        image: k8s.gcr.io/e2e-test-images/busybox:1.29
-        command:
-          - "/bin/sleep"
-          - "10000"
+      - name: go-example-app
+        image: joinnisacr.azurecr.io/go-example-app:latest
         volumeMounts:
         - name: secrets-store-inline
           mountPath: "/mnt/secrets-store"
           readOnly: true
-    volumes:
-      - name: secrets-store-inline
-        csi:
-          driver: secrets-store.csi.k8s.io
-          readOnly: true
-          volumeAttributes:
-            secretProviderClass: "akvprovider-demo"
-          nodePublishSecretRef:                       
-            name: secrets-store-creds
+        ports:
+          - containerPort: 8000
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "akvprovider-demo"
+            nodePublishSecretRef:                       
+              name: secrets-store-creds
